@@ -16,20 +16,19 @@ jobs:
       - name: Install Poetry binary
         run: pipx install poetry
 
+      - name: Install CDK
+        run: npm install -g aws-cdk
+
       - uses: actions/setup-python@v4
         with:
           python-version: '>=3.11 <4.0'
           cache: 'poetry'
 
       - name: Install Python deps
-        run: poetry install
+        run: poetry install --without dev --sync
 
-      - name: cdk deploy
-        uses: youyo/aws-cdk-github-actions@v2
-        with:
-          cdk_subcommand: 'deploy'
-          cdk_args: '--require-approval never'
-          actions_comment: false
+      - name: CDK deploy
+        run: poetry run cdk deploy --require-approval never
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
