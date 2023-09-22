@@ -1,0 +1,33 @@
+on:
+  workflow_dispatch:
+
+name: CDK Diff
+
+jobs:
+  aws_cdk:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Poetry binary
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '>=3.11 <4.0'
+          cache: 'poetry'
+
+      - name: Install Python deps
+        run: poetry install
+
+      - name: cdk deploy
+        uses: youyo/aws-cdk-github-actions@v2
+        with:
+          cdk_subcommand: 'diff'
+          actions_comment: false
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: 'us-east-2'
