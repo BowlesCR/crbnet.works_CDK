@@ -4,25 +4,36 @@ import os
 import aws_cdk as cdk
 
 from crbnetworks.crbnetworks_stack import CRBNetworksStack
-
+from crbnetworks.cert_stack import CertStack
 
 app = cdk.App()
-CRBNetworksStack(app, "CRBNetworksStack",
-    # If you don't specify 'env', this stack will be environment-agnostic.
-    # Account/Region-dependent features and context lookups will not work,
-    # but a single synthesized template can be deployed anywhere.
 
-    # Uncomment the next line to specialize this stack for the AWS Account
-    # and Region that are implied by the current CLI configuration.
+DOMAINS = ["crbnet.works", "www.crbnet.works"]
 
-    env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION')),
+cert_stack = CertStack(
+    app,
+    "CertStack",
+    env=cdk.Environment(
+        account=os.getenv("CDK_DEFAULT_ACCOUNT"),
+        region="us-east-1",
+    ),
+    domains=DOMAINS,
+    cross_region_references=True,
+)
 
-    # Uncomment the next line if you know exactly what Account and Region you
-    # want to deploy the stack to. */
+cdk.Tags.of(cert_stack).add("App", "CRBNet.works")
 
-    #env=cdk.Environment(account='123456789012', region='us-east-1'),
-
-    # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
-    )
+crbnetworks_stack = CRBNetworksStack(
+    app,
+    "CRBNetworksStack",
+    env=cdk.Environment(
+        account=os.getenv("CDK_DEFAULT_ACCOUNT"),
+        region=os.getenv("CDK_DEFAULT_REGION"),
+    ),
+    cert=cert_stack.cert,
+    domains=DOMAINS,
+    cross_region_references=True,
+)
+cdk.Tags.of(crbnetworks_stack).add("App", "CRBNet.works")
 
 app.synth()
