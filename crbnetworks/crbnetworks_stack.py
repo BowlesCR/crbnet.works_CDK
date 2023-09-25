@@ -52,9 +52,19 @@ class CRBNetworksStack(Stack):
                     )
                 ],
                 origin_request_policy=cloudfront.OriginRequestPolicy.CORS_S3_ORIGIN,
-                response_headers_policy=cloudfront.ResponseHeadersPolicy.from_response_headers_policy_id(
-                    self, id="response_headers_policy", response_headers_policy_id="2790f410-a427-4767-88d5-fa0033ad4e84"
-                ),  # TODO: real construct
+                response_headers_policy=cloudfront.ResponseHeadersPolicy(
+                    self,
+                    id="crbnetworks_response_headers",
+                    security_headers_behavior=cloudfront.ResponseSecurityHeadersBehavior(
+                        strict_transport_security=cloudfront.ResponseHeadersStrictTransportSecurity(access_control_max_age=Duration.days(365), include_subdomains=True, preload=True, override=True),
+                        content_type_options=cloudfront.ResponseHeadersContentTypeOptions(override=False),
+                        frame_options=cloudfront.ResponseHeadersFrameOptions(frame_option=cloudfront.HeadersFrameOption.DENY, override=False),
+                        xss_protection=cloudfront.ResponseHeadersXSSProtection(protection=True, mode_block=True, override=False),
+                        referrer_policy=cloudfront.ResponseHeadersReferrerPolicy(referrer_policy=cloudfront.HeadersReferrerPolicy.SAME_ORIGIN, override=False),
+                        content_security_policy=cloudfront.ResponseHeadersContentSecurityPolicy(content_security_policy="default-src 'none'; script-src 'self' https://code.jquery.com/ https://cdnjs.cloudflare.com/ https://stackpath.bootstrapcdn.com/; style-src 'self' https://cdn.jsdelivr.net/ https://fonts.googleapis.com/ https://use.fontawesome.com/; img-src 'self' data:; font-src https://use.fontawesome.com/ https://cdn.jsdelivr.net/ https://fonts.gstatic.com/; object-src 'none'; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests; block-all-mixed-content; base-uri crbnet.works www.crbnet.works; manifest-src 'self'", override=False)
+                    ),
+                    custom_headers_behavior=cloudfront.ResponseCustomHeadersBehavior(custom_headers=[cloudfront.ResponseCustomHeader(header="permissions-policy", value="sync-xhr=()", override=False)]),
+                ),
                 viewer_protocol_policy=cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
             ),
             certificate=cert,
