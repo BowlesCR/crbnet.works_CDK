@@ -28,7 +28,7 @@ jobs:
         run: poetry install --without dev --sync
 
       - name: CDK deploy
-        run: poetry run cdk deploy --require-approval never
+        run: poetry run cdk deploy --require-approval never --all
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
