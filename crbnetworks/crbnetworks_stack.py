@@ -43,11 +43,11 @@ class CRBNetworksStack(Stack):
                 function_associations=[
                     cloudfront.FunctionAssociation(
                         event_type=cloudfront.FunctionEventType.VIEWER_REQUEST,
-                        function=cloudfront.Function.from_function_attributes(  # TODO: real construct
+                        function=cloudfront.Function(
                             self,
-                            "Spam",
-                            function_name="Spam",
-                            function_arn="arn:aws:cloudfront::491980376260:function/Spam",
+                            id="spam_function",
+                            comment="Block obvious spam",
+                            code=cloudfront.FunctionCode.from_file(file_path="crbnetworks/SpamFunction.js"),
                         ),
                     )
                 ],
