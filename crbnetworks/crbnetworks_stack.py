@@ -23,7 +23,10 @@ class CRBNetworksStack(Stack):
                 s3.CorsRule(
                     allowed_methods=[s3.HttpMethods.GET],
                     allowed_origins=["*"],
-                    allowed_headers=["Authorization", "Content-Length"],
+                    allowed_headers=[
+                        "Authorization",
+                        "Content-Length",
+                    ],
                     exposed_headers=[],
                     max_age=3000,
                 )
@@ -31,7 +34,13 @@ class CRBNetworksStack(Stack):
             encryption=s3.BucketEncryption.S3_MANAGED,
             enforce_ssl=True,
             object_ownership=s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
-            lifecycle_rules=[s3.LifecycleRule(id="Delete old logs", expiration=Duration.days(30), prefix="cf-logs/")],
+            lifecycle_rules=[
+                s3.LifecycleRule(
+                    id="Delete old logs",
+                    expiration=Duration.days(30),
+                    prefix="cf-logs/",
+                ),
+            ],
         )
 
         cf = cloudfront.Distribution(
@@ -56,14 +65,40 @@ class CRBNetworksStack(Stack):
                     self,
                     id="crbnetworks_response_headers",
                     security_headers_behavior=cloudfront.ResponseSecurityHeadersBehavior(
-                        strict_transport_security=cloudfront.ResponseHeadersStrictTransportSecurity(access_control_max_age=Duration.days(365), include_subdomains=True, preload=True, override=True),
+                        strict_transport_security=cloudfront.ResponseHeadersStrictTransportSecurity(
+                            access_control_max_age=Duration.days(365),
+                            include_subdomains=True,
+                            preload=True,
+                            override=True,
+                        ),
                         content_type_options=cloudfront.ResponseHeadersContentTypeOptions(override=False),
-                        frame_options=cloudfront.ResponseHeadersFrameOptions(frame_option=cloudfront.HeadersFrameOption.DENY, override=False),
-                        xss_protection=cloudfront.ResponseHeadersXSSProtection(protection=True, mode_block=True, override=False),
-                        referrer_policy=cloudfront.ResponseHeadersReferrerPolicy(referrer_policy=cloudfront.HeadersReferrerPolicy.SAME_ORIGIN, override=False),
-                        content_security_policy=cloudfront.ResponseHeadersContentSecurityPolicy(content_security_policy="default-src 'none'; script-src 'self' https://code.jquery.com/ https://cdnjs.cloudflare.com/ https://stackpath.bootstrapcdn.com/; style-src 'self' https://cdn.jsdelivr.net/ https://fonts.googleapis.com/ https://use.fontawesome.com/; img-src 'self' data:; font-src https://use.fontawesome.com/ https://cdn.jsdelivr.net/ https://fonts.gstatic.com/; object-src 'none'; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests; block-all-mixed-content; base-uri crbnet.works www.crbnet.works; manifest-src 'self'", override=False)
+                        frame_options=cloudfront.ResponseHeadersFrameOptions(
+                            frame_option=cloudfront.HeadersFrameOption.DENY,
+                            override=False,
+                        ),
+                        xss_protection=cloudfront.ResponseHeadersXSSProtection(
+                            protection=True,
+                            mode_block=True,
+                            override=False,
+                        ),
+                        referrer_policy=cloudfront.ResponseHeadersReferrerPolicy(
+                            referrer_policy=cloudfront.HeadersReferrerPolicy.SAME_ORIGIN,
+                            override=False,
+                        ),
+                        content_security_policy=cloudfront.ResponseHeadersContentSecurityPolicy(
+                            content_security_policy="default-src 'none'; script-src 'self' https://code.jquery.com/ https://cdnjs.cloudflare.com/ https://stackpath.bootstrapcdn.com/; style-src 'self' https://cdn.jsdelivr.net/ https://fonts.googleapis.com/ https://use.fontawesome.com/; img-src 'self' data:; font-src https://use.fontawesome.com/ https://cdn.jsdelivr.net/ https://fonts.gstatic.com/; object-src 'none'; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests; block-all-mixed-content; base-uri crbnet.works www.crbnet.works; manifest-src 'self'",
+                            override=False,
+                        ),
                     ),
-                    custom_headers_behavior=cloudfront.ResponseCustomHeadersBehavior(custom_headers=[cloudfront.ResponseCustomHeader(header="permissions-policy", value="sync-xhr=()", override=False)]),
+                    custom_headers_behavior=cloudfront.ResponseCustomHeadersBehavior(
+                        custom_headers=[
+                            cloudfront.ResponseCustomHeader(
+                                header="permissions-policy",
+                                value="sync-xhr=()",
+                                override=False,
+                            )
+                        ]
+                    ),
                 ),
                 viewer_protocol_policy=cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
             ),
@@ -78,7 +113,12 @@ class CRBNetworksStack(Stack):
             minimum_protocol_version=cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
             price_class=cloudfront.PriceClass.PRICE_CLASS_100,
             error_responses=[
-                cloudfront.ErrorResponse(http_status=code, response_http_status=code, response_page_path="/error.html", ttl=Duration.seconds(60))
+                cloudfront.ErrorResponse(
+                    http_status=code,
+                    response_http_status=code,
+                    response_page_path="/error.html",
+                    ttl=Duration.seconds(60),
+                )
                 for code in [400, 403, 404, 405, 414, 416]
             ],
         )
