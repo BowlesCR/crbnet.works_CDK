@@ -20,17 +20,17 @@ tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pyte
 
 [[package]]
 name = "aws-cdk-asset-awscli-v1"
-version = "2.2.200"
+version = "2.2.201"
 description = "A library that contains the AWS CLI for use in Lambda Layers"
 optional = false
 python-versions = "~=3.7"
 files = [
-    {file = "aws-cdk.asset-awscli-v1-2.2.200.tar.gz", hash = "sha256:af4d67ef7aa4183073e63be5f88d1ce1912b24d2ebac35148e84678d674bdfcd"},
-    {file = "aws_cdk.asset_awscli_v1-2.2.200-py3-none-any.whl", hash = "sha256:ed1b881402b255daec151e386581a627ce13f4d5cb94b7184e6efc38d27584b0"},
+    {file = "aws-cdk.asset-awscli-v1-2.2.201.tar.gz", hash = "sha256:88d1c269fd5cf8c9f6e0464ed22e2d4f269dfd5b36b8c4d37687bdba9c269839"},
+    {file = "aws_cdk.asset_awscli_v1-2.2.201-py3-none-any.whl", hash = "sha256:56fe2ef91d3c8d33559aa32d2130e5f35f23af1fb82f06648ebbc82ffe0a5879"},
 ]
 
 [package.dependencies]
-jsii = ">=1.84.0,<2.0.0"
+jsii = ">=1.91.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<2.14.0"
 
@@ -68,21 +68,21 @@ typeguard = ">=2.13.3,<2.14.0"
 
 [[package]]
 name = "aws-cdk-lib"
-version = "2.97.1"
+version = "2.110.0"
 description = "Version 2 of the AWS Cloud Development Kit library"
 optional = false
 python-versions = "~=3.7"
 files = [
-    {file = "aws-cdk-lib-2.97.1.tar.gz", hash = "sha256:9d7f65b3e7460caa9ac907f8ff3605e4d6f5cf39e2de7f8762542501f8bd3a9b"},
-    {file = "aws_cdk_lib-2.97.1-py3-none-any.whl", hash = "sha256:42f6c41c083568a9051732f0da607ffc8f131e3158f0357266f9f35fd3feb96d"},
+    {file = "aws-cdk-lib-2.110.0.tar.gz", hash = "sha256:2f6650e8d365fb2b143e65cf22d91de45c090636d8a2f1ac68efc302187780f7"},
+    {file = "aws_cdk_lib-2.110.0-py3-none-any.whl", hash = "sha256:80a8eac6dcc2dd38496d9296efb1d90b45051dd1748743555bf69cfe83b1aa0a"},
 ]
 
 [package.dependencies]
-"aws-cdk.asset-awscli-v1" = ">=2.2.200,<3.0.0"
+"aws-cdk.asset-awscli-v1" = ">=2.2.201,<3.0.0"
 "aws-cdk.asset-kubectl-v20" = ">=2.1.2,<3.0.0"
 "aws-cdk.asset-node-proxy-agent-v6" = ">=2.0.1,<3.0.0"
 constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.88.0,<2.0.0"
+jsii = ">=1.91.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<2.14.0"
 
@@ -211,13 +211,13 @@ testing = ["pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)",
 
 [[package]]
 name = "jsii"
-version = "1.89.0"
+version = "1.92.0"
 description = "Python client for jsii runtime"
 optional = false
-python-versions = "~=3.7"
+python-versions = "~=3.8"
 files = [
-    {file = "jsii-1.89.0-py3-none-any.whl", hash = "sha256:20a463e8533eded656b285f532e5468a414c48ab083cf0cf93a86d593f0c36b8"},
-    {file = "jsii-1.89.0.tar.gz", hash = "sha256:6edbb79afc0b7407cb64e9dd0f27b512279201307c16dd9ae72462b3cbd09970"},
+    {file = "jsii-1.92.0-py3-none-any.whl", hash = "sha256:30deaea011e146e1d4c0dbb35bd7effd4d292cef676052e5672a825fc1aaaebf"},
+    {file = "jsii-1.92.0.tar.gz", hash = "sha256:2b5205c0fec87e1a9a9f283f60577ad172d7124bb614b8cdadc963306e1ac75f"},
 ]
 
 [package.dependencies]
@@ -227,7 +227,7 @@ importlib-resources = ">=5.2.0"
 publication = ">=0.0.3"
 python-dateutil = "*"
 typeguard = ">=2.13.3,<2.14.0"
-typing-extensions = ">=3.7,<5.0"
+typing-extensions = ">=3.8,<5.0"
 
 [[package]]
 name = "mypy-extensions"
@@ -342,4 +342,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "66a20fce59cdf8d96b873bbfa28eae07e70feea1c03548a22ac76959512d60e0"
+content-hash = "6cbf65d6bc29789dd1a003c89fdc44e604aeda001924762ec4078c57df0bcfd0"
