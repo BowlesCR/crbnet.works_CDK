@@ -12,7 +12,7 @@ constructs = "^10.2.70"
 
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.9.1"
+black = "^24"
 
 [build-system]
 requires = ["poetry-core"]
