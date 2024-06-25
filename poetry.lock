@@ -69,13 +69,13 @@ typeguard = ">=2.13.3,<2.14.0"
 
 [[package]]
 name = "aws-cdk-lib"
-version = "2.141.0"
+version = "2.147.1"
 description = "Version 2 of the AWS Cloud Development Kit library"
 optional = false
 python-versions = "~=3.8"
 files = [
-    {file = "aws-cdk-lib-2.141.0.tar.gz", hash = "sha256:ed3b803a140437509f15fb9b1f8fdd6dad610da9a09e81ce147deade44d2b3e6"},
-    {file = "aws_cdk_lib-2.141.0-py3-none-any.whl", hash = "sha256:3de40f107f45feb240a751ad7c259fae7d341de1cc9c97f47059b2ff86bd62eb"},
+    {file = "aws-cdk-lib-2.147.1.tar.gz", hash = "sha256:2c931059eeb731843861daff54f6d3551c56d6c938f3149b1171133201148341"},
+    {file = "aws_cdk_lib-2.147.1-py3-none-any.whl", hash = "sha256:64c763b4d9aeb5528b5778afcde5e9af6126952ca06f0f4adf66568b037d86fc"},
 ]
 
 [package.dependencies]
@@ -83,7 +83,7 @@ files = [
 "aws-cdk.asset-kubectl-v20" = ">=2.1.2,<3.0.0"
 "aws-cdk.asset-node-proxy-agent-v6" = ">=2.0.3,<3.0.0"
 constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.98.0,<2.0.0"
+jsii = ">=1.99.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<2.14.0"
 
@@ -212,13 +212,13 @@ testing = ["pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)",
 
 [[package]]
 name = "jsii"
-version = "1.98.0"
+version = "1.100.0"
 description = "Python client for jsii runtime"
 optional = false
 python-versions = "~=3.8"
 files = [
-    {file = "jsii-1.98.0-py3-none-any.whl", hash = "sha256:3067d523126ce8178374dd958c60350efc831fc2ef3eb94a0a755d64fa4cc22d"},
-    {file = "jsii-1.98.0.tar.gz", hash = "sha256:64bbaf9c494626bc0afd1b95834f0dba66a2f2ecbb0da97fa3000c4b01d67857"},
+    {file = "jsii-1.100.0-py3-none-any.whl", hash = "sha256:3564188028b5b2ddf7fbd50bb28555125e684a6c4540f591c9be088bc073fdb8"},
+    {file = "jsii-1.100.0.tar.gz", hash = "sha256:b267f651086cbdbb2ba336099361ebfc109dbe86f3c8671636338090c4b4d2f4"},
 ]
 
 [package.dependencies]
@@ -343,4 +343,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "0dbbfc3644111c196a49c356ca8b06924dc03cb8b7410ed55ed82f559c9e2d0e"
+content-hash = "79ceb65020a9ec80dd3843cc082446e87c58818b2c5151d010abc8f28c65401e"
