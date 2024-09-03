@@ -68,22 +68,39 @@ publication = ">=0.0.3"
 typeguard = ">=2.13.3,<2.14.0"
 
 [[package]]
+name = "aws-cdk-cloud-assembly-schema"
+version = "36.0.24"
+description = "Cloud Assembly Schema"
+optional = false
+python-versions = "~=3.8"
+files = [
+    {file = "aws_cdk.cloud_assembly_schema-36.0.24-py3-none-any.whl", hash = "sha256:81290bd790c9aa7f051353aa1d6553325d6979851b0b7da147ba06b7653bf23c"},
+    {file = "aws_cdk_cloud_assembly_schema-36.0.24.tar.gz", hash = "sha256:bf509eb4fc97d1e60a7d18b533855eb50926dc1a7422336e2bfa78ad73979705"},
+]
+
+[package.dependencies]
+jsii = ">=1.103.1,<2.0.0"
+publication = ">=0.0.3"
+typeguard = ">=2.13.3,<5.0.0"
+
+[[package]]
 name = "aws-cdk-lib"
-version = "2.151.0"
+version = "2.155.0"
 description = "Version 2 of the AWS Cloud Development Kit library"
 optional = false
 python-versions = "~=3.8"
 files = [
-    {file = "aws-cdk-lib-2.151.0.tar.gz", hash = "sha256:de4e48c88cc7cc78dd7bf9552d2fb16c23b138389413ecdc339afe4d269e2b59"},
-    {file = "aws_cdk_lib-2.151.0-py3-none-any.whl", hash = "sha256:53592054de115cdd38b581b669be700232bff11855d47c1b2308abcf9d845519"},
+    {file = "aws_cdk_lib-2.155.0-py3-none-any.whl", hash = "sha256:260e6b237f7e916700d18402d811c0dbabb36b0d90275ee73810ce9746650961"},
+    {file = "aws_cdk_lib-2.155.0.tar.gz", hash = "sha256:4156ec3f6bd6fce09285a7309ca1f62b3ed95ef0a9e902eab4f649e118911771"},
 ]
 
 [package.dependencies]
 "aws-cdk.asset-awscli-v1" = ">=2.2.202,<3.0.0"
 "aws-cdk.asset-kubectl-v20" = ">=2.1.2,<3.0.0"
 "aws-cdk.asset-node-proxy-agent-v6" = ">=2.0.3,<3.0.0"
+"aws-cdk.cloud-assembly-schema" = ">=36.0.5,<37.0.0"
 constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.101.0,<2.0.0"
+jsii = ">=1.102.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<2.14.0"
 
@@ -212,22 +229,22 @@ testing = ["pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)",
 
 [[package]]
 name = "jsii"
-version = "1.101.0"
+version = "1.103.1"
 description = "Python client for jsii runtime"
 optional = false
 python-versions = "~=3.8"
 files = [
-    {file = "jsii-1.101.0-py3-none-any.whl", hash = "sha256:b78b87f8316560040ad0b9dca1682d73b6532a33acf4ecf56185d1ae5edb54fa"},
-    {file = "jsii-1.101.0.tar.gz", hash = "sha256:043c4d3d0d09af3c7265747f4da9c95770232477f75c846640df4c63d01b19cb"},
+    {file = "jsii-1.103.1-py3-none-any.whl", hash = "sha256:24b96349230ca22f50fcd69c501e69b6c486acf37bbe0b5869f4c185572b079e"},
+    {file = "jsii-1.103.1.tar.gz", hash = "sha256:7eaa46e8cd9546edc6bba81d0b32df9f8ed8f5848305277d261cccfe00b9c1eb"},
 ]
 
 [package.dependencies]
-attrs = ">=21.2,<24.0"
+attrs = ">=21.2,<25.0"
 cattrs = ">=1.8,<23.3"
 importlib-resources = ">=5.2.0"
 publication = ">=0.0.3"
 python-dateutil = "*"
-typeguard = ">=2.13.3,<2.14.0"
+typeguard = ">=2.13.3,<5.0.0"
 typing-extensions = ">=3.8,<5.0"
 
 [[package]]
@@ -343,4 +360,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "246f82671d15719f7fab65edc1c3c997c8982b365f8bcd889501ad706c70257f"
+content-hash = "391b20250436fbcc488e7507563ae56ae959407ebbd55eec542c52af15447536"
