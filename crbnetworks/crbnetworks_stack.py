@@ -5,7 +5,6 @@ from aws_cdk import (
     aws_cloudfront as cloudfront,
     aws_cloudfront_origins as origins,
     aws_certificatemanager as acm,
-    aws_iam as iam,
 )
 from constructs import Construct
 
@@ -43,11 +42,18 @@ class CRBNetworksStack(Stack):
             ],
         )
 
-        cf = cloudfront.Distribution(
+        oac = cloudfront.S3OriginAccessControl(
+            self,
+            "crbnetworks_OAC",
+            origin_access_control_name="crbnetworks_OAC",
+            signing=cloudfront.Signing.SIGV4_ALWAYS,
+        )
+
+        cloudfront.Distribution(
             self,
             id="distribution",
             default_behavior=cloudfront.BehaviorOptions(
-                origin=origins.S3Origin(bucket, origin_path="/html"),
+                origin=origins.S3BucketOrigin.with_origin_access_control(bucket, origin_path="/html", origin_access_control=oac),
                 compress=True,
                 function_associations=[
                     cloudfront.FunctionAssociation(
@@ -122,57 +128,3 @@ class CRBNetworksStack(Stack):
                 for code in [400, 403, 404, 405, 414, 416]
             ],
         )
-
-        # Workarounds for lack of L2 OAC support - https://github.com/aws/aws-cdk/issues/21771#issuecomment-1567647338
-        # https://github.com/aws/aws-cdk/issues/21771
-        # https://github.com/aws/aws-cdk-rfcs/issues/491
-
-        oac = cloudfront.CfnOriginAccessControl(
-            self,
-            "crbnetworks_OAC",
-            origin_access_control_config=cloudfront.CfnOriginAccessControl.OriginAccessControlConfigProperty(
-                name="crbnetworks_OAC_config",
-                origin_access_control_origin_type="s3",
-                signing_behavior="always",
-                signing_protocol="sigv4",
-            ),
-        )
-
-        bucket.add_to_resource_policy(
-            iam.PolicyStatement(
-                effect=iam.Effect.ALLOW,
-                principals=[iam.ServicePrincipal("cloudfront.amazonaws.com")],
-                actions=["s3:GetObject"],
-                resources=[bucket.arn_for_objects("html/*")],
-                conditions={"StringEquals": {"aws:sourceArn": f"arn:aws:cloudfront::{self.account}:distribution/{cf.distribution_id}"}},
-            )
-        )
-
-        ## clean-up the OAI reference and associate the OAC with the cloudfront distribution
-        # query the site bucket policy as a document
-        bucket_policy = bucket.policy
-        bucket_policy_document = bucket_policy.document
-
-        # remove the CloudFront Origin Access Identity permission from the bucket policy
-        if isinstance(bucket_policy_document, iam.PolicyDocument):
-            bucket_policy_document_json = bucket_policy_document.to_json()
-            # create an updated policy without the OAI reference
-            bucket_policy_updated_json = {"Version": "2012-10-17", "Statement": []}
-            for statement in bucket_policy_document_json["Statement"]:
-                if "CanonicalUser" not in statement["Principal"]:
-                    bucket_policy_updated_json["Statement"].append(statement)
-
-        # apply the updated bucket policy to the bucket
-        bucket_policy_override = bucket.node.find_child("Policy").node.default_child
-        bucket_policy_override.add_override("Properties.PolicyDocument", bucket_policy_updated_json)
-
-        # remove the created OAI reference (S3 Origin property) for the distribution
-        all_distribution_props = cf.node.find_all()
-        for child in all_distribution_props:
-            if child.node.id == "S3Origin":
-                child.node.try_remove_child("Resource")
-
-        # associate the created OAC with the distribution
-        distribution_props = cf.node.default_child
-        distribution_props.add_override("Properties.DistributionConfig.Origins.0.S3OriginConfig.OriginAccessIdentity", "")
-        distribution_props.add_property_override("DistributionConfig.Origins.0.OriginAccessControlId", oac.ref)
