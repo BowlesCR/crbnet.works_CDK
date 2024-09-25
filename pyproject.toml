@@ -4,9 +4,10 @@ version = "0.1.0"
 description = ""
 authors = ["Chris Bowles <BowlesCR@users.noreply.github.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 aws-cdk-lib = "^2.159.1"
 constructs = "^10.2.70"
 
@@ -20,4 +21,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 160
-target-version = ['py311']
+target-version = ['py312', 'py313']
