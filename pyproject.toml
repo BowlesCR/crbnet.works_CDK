@@ -8,7 +8,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
-aws-cdk-lib = "^2.165.0"
+aws-cdk-lib = "^2.167.1"
 constructs = "^10.4.2"
 
 
