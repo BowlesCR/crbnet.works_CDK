@@ -1,0 +1,33 @@
+on:
+  workflow_dispatch:
+
+name: CDK Bootstrap
+
+jobs:
+  aws_cdk:
+    runs-on: ubuntu-24.04-arm
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Install Poetry binary
+        run: pipx install poetry
+
+      - name: Install CDK
+        run: npm install -g aws-cdk
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '>=3.11 <4.0'
+          cache: 'poetry'
+
+      - name: Install Python deps
+        run: poetry install --without dev --sync
+
+      - name: CDK Bootstrap
+        run: poetry run cdk bootstrap
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: 'us-east-2'
