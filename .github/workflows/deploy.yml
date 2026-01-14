@@ -27,7 +27,7 @@ jobs:
           cache: 'poetry'
 
       - name: Install Python deps
-        run: poetry install --without dev --sync
+        run: poetry sync --without dev
 
       - name: CDK deploy
         run: poetry run cdk deploy --require-approval never --all
