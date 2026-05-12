@@ -13,6 +13,6 @@ class CertStack(Stack):
             self,
             "crbnetworks_cert",
             domain_name=domains[0],
-            subject_alternative_names=domains,
+            subject_alternative_names=domains[1:],  # Don't include the primary domain in the SANs list
             validation=acm.CertificateValidation.from_dns(),
         )

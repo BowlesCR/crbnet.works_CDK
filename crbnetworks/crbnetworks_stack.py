@@ -32,7 +32,7 @@ class CRBNetworksStack(Stack):
             ],
             encryption=s3.BucketEncryption.S3_MANAGED,
             enforce_ssl=True,
-            object_ownership=s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
+            object_ownership=s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
             lifecycle_rules=[
                 s3.LifecycleRule(
                     id="Delete old logs",
@@ -63,6 +63,7 @@ class CRBNetworksStack(Stack):
                             id="spam_function",
                             comment="Block obvious spam",
                             code=cloudfront.FunctionCode.from_file(file_path="crbnetworks/SpamFunction.js"),
+                            runtime=cloudfront.FunctionRuntime.JS_2_0,
                         ),
                     )
                 ],
