@@ -73,7 +73,7 @@ class CRBNetworksStack(Stack):
                     id="crbnetworks_response_headers",
                     security_headers_behavior=cloudfront.ResponseSecurityHeadersBehavior(
                         strict_transport_security=cloudfront.ResponseHeadersStrictTransportSecurity(
-                            access_control_max_age=Duration.days(365),
+                            access_control_max_age=Duration.days(730),
                             include_subdomains=True,
                             preload=True,
                             override=True,
@@ -117,7 +117,7 @@ class CRBNetworksStack(Stack):
             http_version=cloudfront.HttpVersion.HTTP2_AND_3,
             log_bucket=bucket,
             log_file_prefix="cf-logs/",
-            minimum_protocol_version=cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+            minimum_protocol_version=cloudfront.SecurityPolicyProtocol.TLS_V1_2_2025,
             price_class=cloudfront.PriceClass.PRICE_CLASS_100,
             error_responses=[
                 cloudfront.ErrorResponse(
