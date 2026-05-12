@@ -83,11 +83,6 @@ class CRBNetworksStack(Stack):
                             frame_option=cloudfront.HeadersFrameOption.DENY,
                             override=False,
                         ),
-                        xss_protection=cloudfront.ResponseHeadersXSSProtection(
-                            protection=True,
-                            mode_block=True,
-                            override=False,
-                        ),
                         referrer_policy=cloudfront.ResponseHeadersReferrerPolicy(
                             referrer_policy=cloudfront.HeadersReferrerPolicy.SAME_ORIGIN,
                             override=False,
@@ -100,10 +95,25 @@ class CRBNetworksStack(Stack):
                     custom_headers_behavior=cloudfront.ResponseCustomHeadersBehavior(
                         custom_headers=[
                             cloudfront.ResponseCustomHeader(
-                                header="permissions-policy",
-                                value="sync-xhr=()",
+                                header="cross-origin-embedder-policy",
+                                value="require-corp",
                                 override=False,
-                            )
+                            ),
+                            cloudfront.ResponseCustomHeader(
+                                header="cross-origin-opener-policy",
+                                value="same-origin",
+                                override=False,
+                            ),
+                            cloudfront.ResponseCustomHeader(
+                                header="cross-origin-resource-policy",
+                                value="same-origin",
+                                override=False,
+                            ),
+                            cloudfront.ResponseCustomHeader(
+                                header="permissions-policy",
+                                value="accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()",
+                                override=False,
+                            ),
                         ]
                     ),
                 ),
