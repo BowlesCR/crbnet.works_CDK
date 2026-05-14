@@ -15,16 +15,8 @@ function handler(event) {
         }
     };
 
-    for (const s of suffix_blacklist) {
-        if (uri.endsWith(s)) {
-            return blocked;
-        }
-    }
-    for (const p of prefix_blacklist) {
-        if (uri.startsWith(p)) {
-            return blocked;
-        }
-    }
+    if (suffix_blacklist.some(s => uri.endsWith(s))) return blocked;
+    if (prefix_blacklist.some(p => uri.startsWith(p))) return blocked;
 
     return request;
 }
