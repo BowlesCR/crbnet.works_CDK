@@ -32,7 +32,7 @@ class CRBNetworksStack(Stack):
             ],
             encryption=s3.BucketEncryption.S3_MANAGED,
             enforce_ssl=True,
-            object_ownership=s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
+            object_ownership=s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
             lifecycle_rules=[
                 s3.LifecycleRule(
                     id="Delete old logs",
@@ -75,7 +75,7 @@ class CRBNetworksStack(Stack):
                         strict_transport_security=cloudfront.ResponseHeadersStrictTransportSecurity(
                             access_control_max_age=Duration.days(730),
                             include_subdomains=True,
-                            preload=True,
+                            preload=False,
                             override=True,
                         ),
                         content_type_options=cloudfront.ResponseHeadersContentTypeOptions(override=False),
@@ -127,7 +127,7 @@ class CRBNetworksStack(Stack):
             http_version=cloudfront.HttpVersion.HTTP2_AND_3,
             log_bucket=bucket,
             log_file_prefix="cf-logs/",
-            minimum_protocol_version=cloudfront.SecurityPolicyProtocol.TLS_V1_2_2025,
+            minimum_protocol_version=cloudfront.SecurityPolicyProtocol.TLS_V1_3_2025,
             price_class=cloudfront.PriceClass.PRICE_CLASS_100,
             error_responses=[
                 cloudfront.ErrorResponse(
